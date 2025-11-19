@@ -2,25 +2,35 @@
 
 
 def split_before_uppercases(formula):
-    parts = []
+    if not formula:
+        return []
+
+    splitted_formula = []
     start = 0
+
     for i in range(1, len(formula)):
         if formula[i].isupper():
-            parts.append(formula[start:i])
+            splitted_formula.append(formula[start:i])
             start = i
-    parts.append(formula[start:])
-    return parts
+
+    splitted_formula.append(formula[start:])
+    return splitted_formula
 
 
 def split_at_digit(formula):
-    name = ""
-    num = ""
-    for char in formula:
-        if char.isdigit():
-            num += char
-        else:
-            name += char
-    return name, int(num) if num else 1
+     if not formula:
+        return "", 1
+
+    for i, ch in enumerate(formula):
+        if ch.isdigit():
+            j = i
+            while j < len(formula) and formula[j].isdigit():
+                j += 1
+            prefix = formula[:i]
+            number_part = int(formula[i:j])
+            return prefix, number_part
+
+    return formula, 1
 
 
 def count_atoms_in_molecule(molecular_formula):
