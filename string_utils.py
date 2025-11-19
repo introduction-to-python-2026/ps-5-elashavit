@@ -24,14 +24,18 @@ def split_at_digit(formula):
 
 
 def count_atoms_in_molecule(molecular_formula):
-    """Takes a molecular formula (string) and returns a dictionary of atom counts."""
-    
+    """Returns a dictionary of atom counts. Example: H2O -> {'H': 2, 'O': 1}"""
+
+    # Step 1: initialize dictionary
     atom_counts = {}
 
     for atom in split_before_uppercases(molecular_formula):
         atom_name, atom_count = split_at_digit(atom)
+
+        # Step 2: update dictionary
         atom_counts[atom_name] = atom_counts.get(atom_name, 0) + atom_count
 
+    # Step 3: return result
     return atom_counts
 
 
@@ -42,7 +46,5 @@ def parse_chemical_reaction(reaction_equation):
 
 
 def count_atoms_in_reaction(molecules_list):
-    molecules_atoms_count = []
-    for molecule in molecules_list:
-        molecules_atoms_count.append(count_atoms_in_molecule(molecule))
-    return molecules_atoms_count
+    return [count_atoms_in_molecule(m) for m in molecules_list]
+    
