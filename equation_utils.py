@@ -43,6 +43,7 @@ def my_solve(equations, coefficients):
 
 def balance_reaction(reaction):
     from string_utils import count_atoms_in_molecule
+    from sympy import Matrix, Rational
 
     reactants_str, products_str = reaction.replace(" ", "").split("->")
     reactants = reactants_str.split("+")
@@ -68,17 +69,15 @@ def balance_reaction(reaction):
     nullspace = A.nullspace()
     vec = [Rational(x) for x in nullspace[0]]
 
+    # Make vector positive
     for i, x in enumerate(vec):
         if x != 0:
             if x < 0:
                 vec = [-c for c in vec]
             break
 
-    positive_coeffs = [x for x in vec if x > 0]
-    min_coeff = min(positive_coeffs)
-    vec = [x / min_coeff for x in vec]
+    # NORMALIZE BY LAST COEFFICIENT (required by tests!)
+    last = vec[-1]
+    vec = [x / last for x in vec]
 
     return vec
-
-
-
