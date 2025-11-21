@@ -10,6 +10,7 @@ def split_before_uppercases(formula):
     parts.append(formula[start:])
     return parts
 
+
 def split_at_digit(element):
     name = ""
     number = ""
@@ -27,6 +28,7 @@ def split_at_digit(element):
 
     return name, number
 
+
 def count_atoms_in_molecule(molecular_formula):
     atom_counts = {}
     for atom in split_before_uppercases(molecular_formula):
@@ -39,10 +41,6 @@ def parse_chemical_reaction(reaction_equation):
     reaction_equation = reaction_equation.replace(" ", "")
     reactants, products = reaction_equation.split("->")
     return reactants.split("+"), products.split("+")
-
-
-def count_atoms_in_reaction(molecules_list):
-    return [count_atoms_in_molecule(m) for m in molecules_list]
 
 
 
